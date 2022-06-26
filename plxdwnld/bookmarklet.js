@@ -20,17 +20,6 @@
     var partKeyXpath = "//Media/Part[1]/@key";
     var baseUri = null;
     var accessToken = null;
-     
-     
-     
-  /*   var el = document.createElement( 'html' );
-el.innerHTML = "<html><head><title>titleTest</title></head><body><a href='test0'>test01</a><a href='test1'>test02</a><a href='test2'>test03</a></body></html>";
-
-el.getElementsByTagName( 'a' );
-     alert(el);
-     
-     
-     */
 
     var getXml = function(url, callback) {
         var request = new XMLHttpRequest();
@@ -42,28 +31,13 @@ el.getElementsByTagName( 'a' );
         request.open("GET", url);
         request.send();
     };
-
-     
      
     var getMetadata = function(xml) {
         var clientId = clientIdRegex.exec(window.location.href);
-		
-        
-        
-        
-        
-        
-        
-        
         
         if (clientId && clientId.length == 2) {
             var accessTokenNode = xml.evaluate(accessTokenXpath.replace('{clientid}', clientId[1]), xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-            
-            
-            
             var baseUriNode = xml.evaluate(baseUriXpath.replace('{clientid}', clientId[1]), xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-            
-            
 
             if (accessTokenNode.singleNodeValue && baseUriNode.singleNodeValue) {
                 accessToken = accessTokenNode.singleNodeValue.textContent;
@@ -72,15 +46,11 @@ el.getElementsByTagName( 'a' );
                 baseUri = baseUriNode.singleNodeValue.textContent;
                 
                 var metadataId = metadataIdRegex.exec(window.location.href);
-                
-                
-                
-                
-                
+  
                 if (metadataId && metadataId.length == 2) {
                     
                     getXml(apiLibraryUrl.replace('{baseuri}', baseUri).replace('{id}', metadataId[1]).replace('{token}', accessToken), getDownloadUrl);
-                    window.location.href = "https://sharedriches.com/plex-scripts/piplongrun/plex-DL6.php?PlxDwnld=" + btoa(apiLibraryUrl.replace('{baseuri}', baseUri).replace('{id}', metadataId[1]).replace('{token}', accessToken) + '&met=' + met);
+                    // window.location.href = "https://sharedriches.com/plex-scripts/piplongrun/plex-DL6.php?PlxDwnld=" + btoa(apiLibraryUrl.replace('{baseuri}', baseUri).replace('{id}', metadataId[1]).replace('{token}', accessToken) + '&met=' + met);
                 } else {
                     alert("You are currently not viewing a media item.");
                 }
@@ -101,16 +71,12 @@ el.getElementsByTagName( 'a' );
         //alert("apiLibraryUrl= " + apiLibraryUrl);
         //alert(xml.evaluate(partKeyXpath, xml, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null));
         //alert("PartPath= " + partKeyNode.singleNodeValue.textContent);
-		
-        
+	    
         if (partKeyNode.singleNodeValue) {
            
             var one = downloadUrl.replace('{baseuri}', baseUri).replace('{partkey}', partKeyNode.singleNodeValue.textContent).replace('{token}', accessToken);
             var cur = window.location.pathname;            
             var newURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname + window.location.search;
-            
-           
-            
                
         } else {
             alert("You are currently not viewing a media item.");
